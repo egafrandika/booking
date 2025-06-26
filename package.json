@@ -11,6 +11,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@fontsource/rubik-doodle-shadow": "^5.2.6",
+    "json-server": "^1.0.0-beta.3",
+    "oh-vue-icons": "^1.0.0-rc3",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"
   },

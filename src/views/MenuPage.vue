@@ -2,6 +2,8 @@
 import { ref, onMounted, computed } from 'vue'
 const dataSource = ref([])
 const currentTab = ref('breakfast')
+const showEditModal = ref(false)
+const editingItem = ref(null)
 
 const tabs = [
   { key: 'breakfast', icon: 'md-fastfood', subtitle: 'Popular', title: 'Breakfast' },
@@ -23,6 +25,31 @@ const chunkedMenus = computed(() => {
   }
   return chunks
 })
+
+function addMenu() {
+  const newItem = {
+    id: Date.now(),
+    name: '',
+    price: '',
+    detail: '',
+    image: 'https://via.placeholder.com/150'
+  }
+  // dataSource.value.push(newItem)
+  openEditModal(newItem)
+}
+
+function openEditModal(item) {
+  editingItem.value = { ...item }
+  showEditModal.value = true
+}
+
+function saveChanges() {
+  const index = dataSource.value.findIndex(item => item.id === editingItem.value.id)
+  if (index !== -1) {
+    dataSource.value[index] = { ...editingItem.value }
+  }
+  showEditModal.value = false
+}
 </script>
 
 <template>
@@ -38,7 +65,31 @@ const chunkedMenus = computed(() => {
         </div>
       </div>
     </div>
-
+    <div class="modal" @click="addMenu">Add New Menu</div>
+    <div v-if="showEditModal" class="modal-popup">
+      <form class="modal-form" @submit.prevent="saveChanges">
+        <div class="modal-header">
+          <h3>Edit Menu</h3>
+          <button type="button" class="close-btn" @click="showEditModal = false">×</button>
+        </div>
+        <div class="form-group">
+          <label>Menu Name</label>
+          <input v-model="editingItem.name" required placeholder="Enter menu name" />
+        </div>
+        <div class="form-group">
+          <label>Menu Price</label>
+          <input v-model="editingItem.price" required type="text" placeholder="Enter menu price" />
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea v-model="editingItem.detail" placeholder="Enter menu description" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn cancel" @click="showEditModal = false">CLOSE</button>
+          <button type="submit" class="btn save">SAVE CHANGES</button>
+        </div>
+      </form>
+    </div>
     <div class="container m-page menu-grid">
       <div v-for="(chunk, index) in chunkedMenus" :key="index" class="menu-column">
         <div v-for="data in chunk" :key="data.id" class="c-menu">
@@ -49,6 +100,7 @@ const chunkedMenus = computed(() => {
             <span class="price">{{ data.price }}</span>
           </div>
           <span class="detail">{{ data.detail }}</span>
+          <div class="edit-btn" @click="openEditModal(data)">Edit Menu</div>
         </div>
       </div>
     </div>
@@ -83,6 +135,21 @@ const chunkedMenus = computed(() => {
   >* {
     position: relative;
     z-index: 1;
+  }
+}
+
+.modal {
+  color: white;
+  border: 1px solid white;
+  width: fit-content;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 0 auto;
+
+  &:hover {
+    background-color: orange;
+    cursor: pointer;
   }
 }
 
@@ -134,6 +201,116 @@ const chunkedMenus = computed(() => {
         color: white;
       }
     }
+  }
+}
+
+.modal-popup {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+
+  .modal-form {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      h3 {
+        margin: 0;
+      }
+
+      .close-btn {
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+
+      label {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: bold;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 60px;
+      }
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .cancel {
+        background: #777;
+        color: white;
+      }
+
+      .save {
+        background: orange;
+        color: white;
+      }
+
+      .cancel:hover {
+        background: #555;
+      }
+
+      .save:hover {
+        background: #e69500;
+      }
+    }
+  }
+}
+
+.edit-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: black;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background: orange;
   }
 }
 

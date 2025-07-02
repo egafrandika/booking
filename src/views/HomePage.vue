@@ -1,4 +1,11 @@
 <script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const onBook = () => {
+  router.push('/booking');
+};
 </script>
 <template>
   <div class="home-page">
@@ -10,7 +17,7 @@
           Handcrafted with love, our onigiri brings the taste of Japan to your table.
           Fresh ingredients, savory fillings, and the perfect rice triangle — made just for you.
         </p>
-        <div class="btn-book">
+        <div class="btn-book" @click="onBook">
           BOOKING A TABLE
         </div>
       </div>

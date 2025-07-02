@@ -1,11 +1,26 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const name = ref('');
 const email = ref('');
 const dateTime = ref('');
 const people = ref('');
 const specialRequest = ref('');
+const router = useRouter();
+
+const peopleOptions = [
+  { value: 1, label: '1 Person' },
+  { value: 2, label: '2 People' },
+  { value: 3, label: '3 People' },
+  { value: 4, label: '4 People' },
+  { value: 5, label: '5 People' },
+  { value: 6, label: '6 People' },
+  { value: 7, label: '7 People' },
+  { value: 8, label: '8 People' },
+  { value: 9, label: '9 People' },
+  { value: 10, label: '10 People' }
+];
 
 const submitForm = async () => {
   if (!name.value || !email.value || !dateTime.value || !people.value) {
@@ -16,9 +31,10 @@ const submitForm = async () => {
   const booking = {
     name: name.value,
     email: email.value,
-    dateTime: dateTime.value,
-    people: people.value,
-    specialRequest: specialRequest.value,
+    booking_date: dateTime.value,
+    people: String(people.value),
+    created_date: new Date().toISOString(),
+    special_request: specialRequest.value,
   };
 
   await fetch('http://localhost:3000/bookings', {
@@ -34,6 +50,8 @@ const submitForm = async () => {
   dateTime.value = '';
   people.value = '';
   specialRequest.value = '';
+
+  router.push('/');
 };
 </script>
 
@@ -48,15 +66,25 @@ const submitForm = async () => {
           <input type="email" v-model="email" placeholder="Your Email" required />
         </div>
         <div class="form-row">
-          <input type="datetime-local" v-model="dateTime" required />
-          <select v-model="people" required>
-            <option disabled value="">No Of People</option>
-            <option v-for="option in peopleOptions" :key="option.value" :value="option.value">
-              {{ option.label }}
-            </option>
-          </select>
+          <label>
+            Booking Date
+            <input type="datetime-local" v-model="dateTime" :min="new Date().toISOString().slice(0, 16)" required />
+          </label>
+          <label>
+            Amount of People
+            <select v-model="people" required>
+              <option disabled value="">No Of People</option>
+              <option v-for="option in peopleOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </label>
         </div>
-        <textarea v-model="specialRequest" placeholder="Special Request"></textarea>
+        <label>
+          Special Request
+          <textarea v-model="specialRequest" placeholder="Special Request"></textarea>
+        </label>
+
         <button type="submit">SUBMIT</button>
       </form>
     </div>
@@ -126,7 +154,7 @@ $border-radius: 5px;
         transition: background-color 0.3s ease;
 
         &:hover {
-          background-color: darken($primary-color, 10%);
+          background-color: #cc8400;
         }
       }
     }

@@ -62,6 +62,11 @@ const saveChanges = async () => {
   }
   showEditModal.value = false;
 }
+
+const onDelete = async (id) => {
+  await fetch(`http://localhost:3000/menu/${id}`, { method: 'DELETE' })
+  dataSource.value = dataSource.value.filter(item => item.id !== id)
+}
 </script>
 
 <template>
@@ -105,6 +110,7 @@ const saveChanges = async () => {
     <div class="container m-page menu-grid">
       <div v-for="(chunk, index) in chunkedMenus" :key="index" class="menu-column">
         <div v-for="data in chunk" :key="data.id" class="c-menu">
+          <div @click="onDelete(data.id)" class="delete">x</div>
           <img loading="lazy" :src="data.image" :alt="data.name" class="img" />
           <div class="card">
             <span class="name">{{ data.name }}</span>
@@ -340,6 +346,7 @@ const saveChanges = async () => {
 }
 
 .c-menu {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
@@ -354,6 +361,26 @@ const saveChanges = async () => {
     object-fit: cover;
     border-radius: 6px;
     margin-bottom: 12px;
+  }
+
+  .delete {
+    position: absolute;
+    border: none;
+    background: blue;
+    color: white;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    right: -10px;
+    top: -10px;
+    cursor: pointer;
+
+    &:hover {
+      background: red;
+    }
   }
 
   .card {

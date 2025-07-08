@@ -21,7 +21,7 @@ function addMenu() {
   const newItem = {
     id: Date.now().toString(),
     name: '',
-    price: '$',
+    price: '',
     detail: '',
     image: 'https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg'
   }
@@ -43,11 +43,15 @@ const saveChanges = async () => {
       body: JSON.stringify(editingItem.value),
     });
   } else {
-    dataSource.value.push({ ...editingItem.value })
+    const params = {
+      ...editingItem.value,
+      price: '$' + editingItem.value.price
+    }
+    dataSource.value.push(params);
     await fetch('http://localhost:3000/menu', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(editingItem.value),
+      body: JSON.stringify(params),
     });
   }
   showEditModal.value = false;
@@ -301,7 +305,7 @@ const onDelete = async (id) => {
 }
 
 .edit-btn {
-  margin-top: 8px;
+  margin-top: auto;
   padding: 6px 12px;
   font-size: 12px;
   color: black;

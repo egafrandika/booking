@@ -3,29 +3,8 @@
     {
       "id": "1",
       "name": "Teriyaki Chicken Onigiri",
-      "price": "$4.1",
+      "price": "$4.6",
       "detail": "A fusion-style onigiri stuffed with tender, juicy chicken glazed in sweet-savory teriyaki sauce.",
-      "image": "https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg"
-    },
-    {
-      "id": "19",
-      "name": "Cheese Chicken Onigiri",
-      "price": "$5.0",
-      "detail": "Savory chicken with gooey cheese — a rich and satisfying bite.",
-      "image": "https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg"
-    },
-    {
-      "id": "20",
-      "name": "Garlic Butter Shrimp Onigiri",
-      "price": "$6.0",
-      "detail": "Shrimp sautéed in garlic butter brings bold flavor to this rice ball.",
-      "image": "https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg"
-    },
-    {
-      "id": "21",
-      "name": "Szechuan Spicy Beef Onigiri",
-      "price": "$5.9",
-      "detail": "Beef cooked with bold Szechuan spices for a fiery experience.",
       "image": "https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg"
     }
   ],

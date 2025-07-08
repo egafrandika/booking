@@ -17,16 +17,6 @@ onMounted(async () => {
   dataSource.value = result
 })
 
-// const chunkedMenus = computed(() => {
-//   const size = 2
-//   const chunks = []
-//   const data = [...dataSource.value]
-//   for (let i = 0; i < data.length; i += size) {
-//     chunks.push(data.slice(i, i + size))
-//   }
-//   return chunks
-// })
-
 function addMenu() {
   const newItem = {
     id: Date.now().toString(),

@@ -17,15 +17,15 @@ onMounted(async () => {
   dataSource.value = result
 })
 
-const chunkedMenus = computed(() => {
-  const size = 2
-  const chunks = []
-  const data = [...dataSource.value]
-  for (let i = 0; i < data.length; i += size) {
-    chunks.push(data.slice(i, i + size))
-  }
-  return chunks
-})
+// const chunkedMenus = computed(() => {
+//   const size = 2
+//   const chunks = []
+//   const data = [...dataSource.value]
+//   for (let i = 0; i < data.length; i += size) {
+//     chunks.push(data.slice(i, i + size))
+//   }
+//   return chunks
+// })
 
 function addMenu() {
   const newItem = {
@@ -108,23 +108,19 @@ const onDelete = async (id) => {
       </form>
     </div>
     <div class="container m-page menu-grid">
-      <div v-for="(chunk, index) in chunkedMenus" :key="index" class="menu-column">
-        <div v-for="data in chunk" :key="data.id" class="c-menu">
-          <div @click="onDelete(data.id)" class="delete">x</div>
-          <img loading="lazy" :src="data.image" :alt="data.name" class="img" />
-          <div class="card">
-            <span class="name">{{ data.name }}</span>
-            <div class="divider"></div>
-            <span class="price">{{ data.price }}</span>
-          </div>
-          <span class="detail">{{ data.detail }}</span>
-          <div class="edit-btn" @click="openEditModal(data)">Edit Menu</div>
+      <div v-for="data in dataSource" :key="data.id" class="c-menu">
+        <div @click="onDelete(data.id)" class="delete">x</div>
+        <img loading="lazy" :src="data.image" :alt="data.name" class="img" />
+        <div class="card">
+          <span class="name">{{ data.name }}</span>
+          <div class="divider"></div>
+          <span class="price">{{ data.price }}</span>
         </div>
+        <span class="detail">{{ data.detail }}</span>
+        <div class="edit-btn" @click="openEditModal(data)">Edit Menu</div>
       </div>
     </div>
   </div>
-
-
 </template>
 
 <style lang="scss" scoped>
@@ -337,12 +333,10 @@ const onDelete = async (id) => {
 }
 
 .menu-grid {
-  display: flex;
-  gap: 32px;
-}
-
-.menu-column {
-  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 48px;
 }
 
 .c-menu {

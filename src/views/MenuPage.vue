@@ -18,23 +18,23 @@ onMounted(async () => {
 })
 
 const chunkedMenus = computed(() => {
-  const size = 4
+  const size = 2
   const chunks = []
-  for (let i = 0; i < dataSource.value.length; i += size) {
-    chunks.push(dataSource.value.slice(i, i + size))
+  const data = [...dataSource.value]
+  for (let i = 0; i < data.length; i += size) {
+    chunks.push(data.slice(i, i + size))
   }
   return chunks
 })
 
 function addMenu() {
   const newItem = {
-    id: Date.now(),
+    id: Date.now().toString(),
     name: '',
-    price: '',
+    price: '$',
     detail: '',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg'
   }
-  // dataSource.value.push(newItem)
   openEditModal(newItem)
 }
 
@@ -43,12 +43,24 @@ function openEditModal(item) {
   showEditModal.value = true
 }
 
-function saveChanges() {
+const saveChanges = async () => {
   const index = dataSource.value.findIndex(item => item.id === editingItem.value.id)
   if (index !== -1) {
     dataSource.value[index] = { ...editingItem.value }
+    await fetch(`http://localhost:3000/menu/${editingItem.value.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editingItem.value),
+    });
+  } else {
+    dataSource.value.push({ ...editingItem.value })
+    await fetch('http://localhost:3000/menu', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editingItem.value),
+    });
   }
-  showEditModal.value = false
+  showEditModal.value = false;
 }
 </script>
 

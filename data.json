@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "Classic Onigiri",
-      "price": "$3",
+      "price": "$30001",
       "detail": "A timeless favorite, this hand-pressed rice ball is seasoned with a touch of salt and wrapped with a crispy sheet of nori. Perfectly simple yet deeply satisfying, it captures the essence of traditional Japanese comfort food.",
       "image": "https://images.pexels.com/photos/31302286/pexels-photo-31302286.jpeg"
     },
@@ -17,7 +17,7 @@
     {
       "id": "3",
       "name": "Salmon Onigiri",
-      "price": "$4",
+      "price": "$40",
       "detail": "A classic combination of moist, flaky grilled salmon encased in perfectly seasoned rice. Finished with a hint of sea salt and wrapped in nori, it's both nourishing and delicious—ideal for lunch or a quick snack.",
       "image": "https://images.pexels.com/photos/31418929/pexels-photo-31418929.jpeg"
     },
@@ -31,7 +31,7 @@
     {
       "id": "5",
       "name": "Onigiri Party Pack",
-      "price": "$12",
+      "price": "$1",
       "detail": "An assorted pack of our best-selling onigiri, including Classic, Tuna Mayo, and Salmon varieties. Ideal for gatherings, picnics, or family lunches, each bite brings a unique taste of Japan's favorite rice snack.",
       "image": "https://images.pexels.com/photos/31418931/pexels-photo-31418931.jpeg"
     },
@@ -54,6 +54,20 @@
       "name": "Teriyaki Chicken Onigiri",
       "price": "$4.8",
       "detail": "A fusion-style onigiri stuffed with tender, juicy chicken glazed in a sweet-savory teriyaki sauce. It’s a satisfying mix of traditional rice ball technique with a global twist that brings hearty flavor to every bite.",
+      "image": "https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg"
+    },
+    {
+      "id": "1751968274612",
+      "name": "ada",
+      "price": "$1",
+      "detail": "dd",
+      "image": "https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg"
+    },
+    {
+      "id": "1751968355943",
+      "name": "adadad",
+      "price": "$2",
+      "detail": "adad",
       "image": "https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg"
     }
   ],
@@ -84,6 +98,15 @@
       "people": "7",
       "created_date": "2025-07-02T06:27:06.835Z",
       "special_request": "adadad"
+    },
+    {
+      "id": "235c",
+      "name": "ad",
+      "email": "eg@gm.com",
+      "booking_date": "2025-07-08T16:50",
+      "people": "5",
+      "created_date": "2025-07-08T09:50:15.216Z",
+      "special_request": "d"
     }
   ]
 }

@@ -53,6 +53,10 @@ const submitForm = async () => {
 
   router.push('/');
 };
+
+function onCancel() {
+  router.push('/');
+}
 </script>
 
 <template>
@@ -86,6 +90,7 @@ const submitForm = async () => {
         </label>
 
         <button type="submit">SUBMIT</button>
+        <button class="cancel" @click="onCancel">CANCEL</button>
       </form>
     </div>
   </div>
@@ -155,6 +160,15 @@ $border-radius: 5px;
 
         &:hover {
           background-color: #cc8400;
+        }
+      }
+
+      .cancel {
+        background: blue;
+        margin: 5px 0;
+
+        &:hover {
+          background-color: #6e5423;
         }
       }
     }

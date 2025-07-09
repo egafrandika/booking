@@ -342,7 +342,11 @@ const onDelete = async (id) => {
 
     .name {
       color: #222;
-      display: flex;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .price {
@@ -356,6 +360,11 @@ const onDelete = async (id) => {
     line-height: 1.4;
     margin: 4px 0;
     border-top: 1px solid black;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 </style>

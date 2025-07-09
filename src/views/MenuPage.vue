@@ -56,7 +56,8 @@ const onDelete = async (id) => {
         </div>
         <div class="form-group">
           <label>Description</label>
-          <textarea v-model="editingItem.detail" placeholder="Enter menu description" />
+          <textarea v-model="editingItem.detail" placeholder="Enter menu description" rows="6"
+            style="min-height:120px;" />
         </div>
         <div class="modal-actions">
           <button type="button" class="btn cancel" @click="showEditModal = false">CLOSE</button>

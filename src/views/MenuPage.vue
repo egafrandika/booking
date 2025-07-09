@@ -1,21 +1,19 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-const dataSource = ref([])
-const currentTab = ref('breakfast')
-const showEditModal = ref(false)
-const editingItem = ref(null)
+import { ref } from 'vue';
+import useFetch from '@/composables/useFetch';
+const currentTab = ref('breakfast');
+const showEditModal = ref(false);
+const editingItem = ref(null);
+
+const { dataSource, fetchDataSource } = useFetch();
+
+fetchDataSource();
 
 const tabs = [
   { key: 'breakfast', icon: 'md-fastfood', subtitle: 'Popular', title: 'Breakfast' },
   { key: 'lunch', icon: 'gi-onigori', subtitle: 'Special', title: 'Launch' },
   { key: 'dinner', icon: 'md-dinnerdining', subtitle: 'Lovely', title: 'Dinner' }
 ]
-
-onMounted(async () => {
-  const response = await fetch('http://localhost:3000/menu')
-  const result = await response.json()
-  dataSource.value = result
-})
 
 function addMenu() {
   const newItem = {

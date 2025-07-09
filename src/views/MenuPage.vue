@@ -2,12 +2,18 @@
 import { ref } from 'vue';
 import useFetch from '@/composables/useFetch';
 const currentTab = ref('breakfast');
-const showEditModal = ref(false);
-const editingItem = ref(null);
 
-const { dataSource, fetchDataSource } = useFetch();
+const {
+  dataSource,
+  editingItem,
+  showEditModal,
+  openEditModal,
+  getDataSource,
+  deleteDataSource,
+  addMenu,
+  saveChanges } = useFetch();
 
-fetchDataSource();
+getDataSource();
 
 const tabs = [
   { key: 'breakfast', icon: 'md-fastfood', subtitle: 'Popular', title: 'Breakfast' },
@@ -15,49 +21,8 @@ const tabs = [
   { key: 'dinner', icon: 'md-dinnerdining', subtitle: 'Lovely', title: 'Dinner' }
 ]
 
-function addMenu() {
-  const newItem = {
-    id: Date.now().toString(),
-    name: '',
-    price: '',
-    detail: '',
-    image: 'https://images.pexels.com/photos/31282324/pexels-photo-31282324.jpeg'
-  }
-  openEditModal(newItem)
-}
-
-function openEditModal(item) {
-  editingItem.value = { ...item }
-  showEditModal.value = true
-}
-
-const saveChanges = async () => {
-  const index = dataSource.value.findIndex(item => item.id === editingItem.value.id)
-  if (index !== -1) {
-    dataSource.value[index] = { ...editingItem.value }
-    await fetch(`http://localhost:3000/menu/${editingItem.value.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(editingItem.value),
-    });
-  } else {
-    const params = {
-      ...editingItem.value,
-      price: '$' + editingItem.value.price
-    }
-    dataSource.value.push(params);
-    await fetch('http://localhost:3000/menu', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(params),
-    });
-  }
-  showEditModal.value = false;
-}
-
 const onDelete = async (id) => {
-  await fetch(`http://localhost:3000/menu/${id}`, { method: 'DELETE' })
-  dataSource.value = dataSource.value.filter(item => item.id !== id)
+  await deleteDataSource(id);
 }
 </script>
 
